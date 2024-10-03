@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package messagebroker;
+
+// Definim mesajele care vor fi utilizate
+message Message {
+    string channel = 1;
+    string content = 2;
+}
+
+message ChannelRequest {
+    string channel = 1;
+}
+
+message Empty {}
+
+service MessageBroker {
+    // Sender trimite mesaje
+    rpc SendMessage (Message) returns (Empty);
+
+    // Receiver primește mesaje dintr-un canal specific
+    rpc ReceiveMessages (ChannelRequest) returns (stream Message);
+}
